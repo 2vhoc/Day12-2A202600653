@@ -15,7 +15,6 @@ Checklist:
   ✅ Error handling
 """
 import os
-import sys
 import time
 import signal
 import logging
@@ -23,8 +22,6 @@ import json
 from datetime import datetime, timezone
 from collections import defaultdict, deque
 from contextlib import asynccontextmanager
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from fastapi import FastAPI, HTTPException, Security, Depends, Request, Response
 from fastapi.security.api_key import APIKeyHeader
@@ -35,11 +32,7 @@ import uvicorn
 from app.config import settings
 
 # Mock LLM (thay bằng OpenAI/Anthropic khi có API key)
-try:
-    from utils.mock_llm import ask as llm_ask
-except ImportError:
-    sys.path.insert(0, '/app')
-    from utils.mock_llm import ask as llm_ask
+from utils.mock_llm import ask as llm_ask
 
 # ─────────────────────────────────────────────────────────
 # Logging — JSON structured
